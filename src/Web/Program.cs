@@ -30,12 +30,6 @@ else{
     // Configure SQL Server (prod)
     var credential = new ChainedTokenCredential(new AzureDeveloperCliCredential(), new DefaultAzureCredential());
     
-    var keyVaultEndpoint = builder.Configuration["AZURE_KEY_VAULT_ENDPOINT"];
-    if (!string.IsNullOrEmpty(keyVaultEndpoint))
-    {
-    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultEndpoint), credential);
-    }
-
     builder.Services.AddDbContext<CatalogContext>(c =>
     {
         var connectionString = builder.Configuration[builder.Configuration["AZURE_SQL_CATALOG_CONNECTION_STRING_KEY"] ?? ""];
